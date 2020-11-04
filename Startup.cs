@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +47,8 @@ namespace dotnetcoreNHibernateSqlite
             {
                 return _sessionFactory.OpenSession();
             });
+
+            services.AddOData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +66,15 @@ namespace dotnetcoreNHibernateSqlite
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.EnableDependencyInjection();
+                endpoints
+                    .Select()
+                    .Expand()
+                    .Filter()
+                    .OrderBy()
+                    .Count()
+                    .MaxTop(7)
+                    ;
             });
         }
     }
