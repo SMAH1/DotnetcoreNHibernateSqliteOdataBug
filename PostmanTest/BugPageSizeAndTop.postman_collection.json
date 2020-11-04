@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "b636e9b0-c552-43b3-8566-e590116a219f",
+		"name": "BugPageSizeAndTop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Without Odata",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07d47cc9-d753-44d5-924f-595c1bcfbe45",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('Number of persons is 11', function () {\r",
+							"    pm.expect(data.length).to.equal(11);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Person/All",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Person",
+						"All"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Odata Without PageSize, No $top",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "baf872fe-f24f-42d2-9595-261c2170c4ec",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('List persons must be 11', function () {\r",
+							"    pm.expect(data.length).to.equal(11);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Person/odata1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Person",
+						"odata1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Odata Without PageSize, $top=4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c133abab-02b4-4a4c-9a43-f165fc1242bf",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('List persons must be 4', function () {\r",
+							"    pm.expect(data.length).to.equal(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Person/odata1?$top=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Person",
+						"odata1"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Odata PageSize=5, No $top",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d33db98-7322-4636-8616-025b41128add",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('List persons must be 5', function () {\r",
+							"    pm.expect(data.length).to.equal(5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Person/odata2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Person",
+						"odata2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Odata PageSize=5, $top=4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef471309-1f15-4600-a1c8-77a31d6c80e5",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"pm.test('List persons must be 4', function () {\r",
+							"    pm.expect(data.length).to.equal(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/Person/odata2?$top=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Person",
+						"odata2"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

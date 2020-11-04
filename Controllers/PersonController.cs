@@ -72,5 +72,29 @@ namespace dotnetcoreNHibernateSqlite.Controllers
         {
             return _session.Query<Person>();
         }
+
+
+        // HOW TO SEE BUG?
+        // -------------------
+        //
+        // A) Get all persons without Odata
+        //    Call: http://localhost:5000/Person/All
+        //       RETURN 11 persons
+        //
+        // B-1) Get all persons with Odata without PageSize and $top
+        //    Call: http://localhost:5000/Person/odata1
+        //       RETURN 11 persons
+        //
+        // B-2) Get all persons with Odata without PageSize and $top=4
+        //    Call: http://localhost:5000/Person/odata1?$top=4
+        //       RETURN 4 persons
+        //
+        // C-1) Get all persons with Odata with PageSize=5 and without $top
+        //    Call: http://localhost:5000/Person/odata2
+        //       RETURN 5 persons
+        //
+        // C-2) Get all persons with Odata with PageSize=5 and $top=4
+        //    Call: http://localhost:5000/Person/odata2?$top=4
+        //       RETURN 5 persons BUT MUST BE RETURN 4 persons
     }
 }
