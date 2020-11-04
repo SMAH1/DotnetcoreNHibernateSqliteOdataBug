@@ -4,6 +4,7 @@ namespace dotnetcoreNHibernateSqlite.DbModel
 {
     public class Person
     {
+        public virtual long Id { get; set; }
         public virtual string Name { get; set; }
         public virtual int Age { get; set; }
 
@@ -18,7 +19,8 @@ namespace dotnetcoreNHibernateSqlite.DbModel
         public PersonMap()
         {
             Not.LazyLoad();
-            Id(e => e.Name).GeneratedBy.Assigned().Not.Nullable().Length(64);
+            Id(e => e.Id);
+            Map(e => e.Name).Not.Nullable().Length(64);
             Map(e => e.Age).Not.Nullable();
 
             Table("Persons");
